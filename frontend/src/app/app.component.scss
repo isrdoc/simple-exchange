@@ -14,26 +14,13 @@ main {
     width: 100%;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 960px) {
     #app {
         flex-direction: row;
     }
 
     aside {
         max-width: 300px;
-        border-right: 1px solid #fff;
-    }
-}
-
-// TODO: move to main
-.header {
-    height: 70px;
-    line-height: 70px;
-    display: flex;
-
-    & .title {
-        text-transform: uppercase;
-        text-align: center;
-        width: 100%;
+        border-right: 2px solid #fff;
     }
 }

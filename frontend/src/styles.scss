@@ -1,9 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
 $primary: #014d6f;
+$secondary: #01c1d8;
+$light: #eee;
 
 $theme-colors: (
-  primary: $primary
+  primary: $primary,
+  secondary: $secondary,
+  light: $light
 );
+
+/* Headers */
+$h2-font-size: 1em !default;
+$header-height: 70px;
+@mixin view-header {
+  text-transform: uppercase;
+  text-align: center;
+}
 
 @import '../node_modules/bootstrap/scss/bootstrap';

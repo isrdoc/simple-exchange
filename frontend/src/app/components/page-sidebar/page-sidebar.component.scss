@@ -1,18 +1,50 @@
+@import '../../../styles.scss';
+
 #sidebar {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     height: 100%;
 }
 
 .header {
-    height: 70px;
-    line-height: 70px;
+    height: $header-height;
+    line-height: $header-height;
     display: flex;
 
-    & .title {
-        width: calc(100% - 70px);
-        padding-right: 70px;
-        text-align: center;
-        text-transform: uppercase;
+    h1 {
+        margin-left: 5px;
+
+        &.logo {
+            background-image: url('/assets/logo.jpg');
+            width: $header-height;
+            height: $header-height;
+        }
+    }
+
+    .title {
+        width: calc(100% - #{$header-height});
+        padding-right: $header-height;
+        @include view-header;
+    }
+}
+
+.main {
+    padding: 15px;
+    height: calc(100% - (2 * #{$header-height}) + 10px);
+}
+
+.footer {
+    height: $header-height;
+    line-height: $header-height;
+    padding-left: 15px;
+    border-top: 2px solid #fff;
+    display: flex;
+    justify-content: space-between;
+
+    .avatar {
+        width: $header-height;
+        height: $header-height;
+        border-left: 1px dotted #fff;
     }
 }

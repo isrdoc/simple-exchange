@@ -1,0 +1,12 @@
+@import '../../../styles.scss';
+
+.header {
+    height: $header-height;
+    line-height: $header-height;
+    display: flex;
+
+    .title {
+        @include view-header;
+        width: 100%;
+    }
+}
