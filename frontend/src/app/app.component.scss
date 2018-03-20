@@ -1,0 +1,39 @@
+#app {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+aside {
+    width: 100%;
+    background: #333;
+    color: #fff;
+}
+
+main {
+    width: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+    #app {
+        flex-direction: row;
+    }
+
+    aside {
+        max-width: 300px;
+        border-right: 1px solid #fff;
+    }
+}
+
+// TODO: move to main
+.header {
+    height: 70px;
+    line-height: 70px;
+    display: flex;
+
+    & .title {
+        text-transform: uppercase;
+        text-align: center;
+        width: 100%;
+    }
+}

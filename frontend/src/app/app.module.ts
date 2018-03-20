@@ -4,11 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
+import { PageSidebarComponent } from './components/page-sidebar/page-sidebar.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageSidebarComponent
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,6 @@ def my_view(request):
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'project': 'exchange', 'one': one.value}
 
-
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:

@@ -1,0 +1,18 @@
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    height: 70px;
+    line-height: 70px;
+    display: flex;
+
+    & .title {
+        width: calc(100% - 70px);
+        padding-right: 70px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}
