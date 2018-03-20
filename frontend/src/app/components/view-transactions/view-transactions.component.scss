@@ -5,8 +5,13 @@
     line-height: $header-height;
     display: flex;
 
-    .title {
+    h2 {
         @include view-header;
         width: 100%;
     }
+}
+
+.main {
+    padding: 15px;
+    min-height: 200px; // TODO: remove, temp
 }

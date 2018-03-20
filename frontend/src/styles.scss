@@ -11,11 +11,17 @@ $theme-colors: (
 );
 
 /* Headers */
-$h2-font-size: 1em !default;
+$h2-font-size: 1.2em;
 $header-height: 70px;
 @mixin view-header {
-  text-transform: uppercase;
+  height: $header-height;
+  line-height: $header-height;
   text-align: center;
+}
+
+$h3-font-size: 1.2em;
+@mixin box-header {
+  line-height: 2em;
 }
 
 @import '../node_modules/bootstrap/scss/bootstrap';
