@@ -32,6 +32,10 @@
 .main {
     padding: 15px;
     height: calc(100% - #{$header-height});
+
+    .block {
+        margin-bottom: 20px;
+    }
 }
 
 .place-order {

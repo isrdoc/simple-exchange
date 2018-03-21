@@ -10,6 +10,8 @@ import { ViewTransactionsComponent } from './components/view-transactions/view-t
 import { ViewTradeComponent } from './components/view-trade/view-trade.component';
 import { BoxOrdersComponent } from './components/box-orders/box-orders.component';
 import { OrderSortPipe } from './pipes/order-sort.pipe';
+import { BoxBalanceComponent } from './components/box-balance/box-balance.component';
+import { BoxDepositComponent } from './components/box-deposit/box-deposit.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { OrderSortPipe } from './pipes/order-sort.pipe';
     ViewTransactionsComponent,
     ViewTradeComponent,
     BoxOrdersComponent,
-    OrderSortPipe
+    OrderSortPipe,
+    BoxBalanceComponent,
+    BoxDepositComponent
   ],
   imports: [
     BrowserModule,

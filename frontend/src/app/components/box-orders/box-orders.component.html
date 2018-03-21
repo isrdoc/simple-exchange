@@ -12,8 +12,8 @@
   <tbody>
     <tr *ngFor="let order of orders">
       <td *ngIf="!invert" class="d-lg-none">&nbsp;</td>
-      <td>{{invert ? order.amount : order.limit}}</td>
-      <td>{{invert ? order.limit : order.amount}}</td>
+      <td>{{invert ? (order.amount | number:'1.3-3') : (order.limit | number:'1.5-5')}}</td>
+      <td>{{invert ? (order.limit | number:'1.5-5') : (order.amount | number:'1.3-3')}}</td>
       <td *ngIf="invert" class="d-lg-none">&nbsp;</td>
     </tr>
   </tbody>

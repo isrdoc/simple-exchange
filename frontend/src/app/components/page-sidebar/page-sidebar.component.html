@@ -1,11 +1,16 @@
 <div id="sidebar">
   <div class="header bg-primary text-white">
       <h1 class="text-hide logo">{{title}}</h1>
-      <h2>Balance</h2>
   </div>
 
   <div class="main">
-    funds
+      <div class="block">
+        <app-box-balance [balances]="balances"></app-box-balance>
+      </div>
+      
+      <div class="block">
+        <app-box-deposit></app-box-deposit>
+      </div>
   </div>
 
   <div class="place-order bg-light text-dark">

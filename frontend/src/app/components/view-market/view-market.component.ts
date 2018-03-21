@@ -11,22 +11,22 @@ export class ViewMarketComponent implements OnInit {
   private buying: Order[] = [
     {
       limit: 0.07,
-      amount: 10
+      amount: 2
     },
     {
       limit: 0.08,
-      amount: 7
+      amount: 1
     }
   ];
 
   private selling: Order[] = [
     {
       limit: 0.09,
-      amount: 5
+      amount: 1
     },
     {
       limit: 0.08,
-      amount: 2
+      amount: 0.5
     }
   ];
 

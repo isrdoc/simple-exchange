@@ -1,0 +1,8 @@
+.balance {
+  display: flex;
+  font-size: 0.9em;
+
+  & > div {
+    width: 50%;
+  }
+}
