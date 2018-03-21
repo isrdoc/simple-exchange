@@ -3,3 +3,12 @@
 h3 {
   @include box-header
 }
+
+@media screen and (max-width: 960px) {
+  .text-left,
+  .text-right {
+    text-align: center !important;
+  }
+
+  
+}

@@ -1,16 +1,20 @@
-<h3>{{title}}</h3>
+<h3 [ngClass]="invert ? 'text-right' : 'text-left'">{{title}}</h3>
 
-<table class="table">
+<table class="table" [ngClass]="invert ? 'text-right' : 'text-left'">
   <thead>
     <tr>
-      <th scope="col">Limit</th>
-      <th scope="col">Amount</th>
+      <th scope="col" width="33%" *ngIf="!invert" class="d-lg-none"></th>
+      <th scope="col" width="33%">{{invert ? 'Amount' : 'Limit'}}</th>
+      <th scope="col" width="33%">{{invert ? 'Limit' : 'Amount'}}</th>
+      <th scope="col" width="33%" *ngIf="invert" class="d-lg-none"></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let order of orders">
-      <td>{{order.limit}}</td>
-      <td>{{order.amount}}</td>
+      <td *ngIf="!invert" class="d-lg-none">&nbsp;</td>
+      <td>{{invert ? order.amount : order.limit}}</td>
+      <td>{{invert ? order.limit : order.amount}}</td>
+      <td *ngIf="invert" class="d-lg-none">&nbsp;</td>
     </tr>
   </tbody>
 </table>

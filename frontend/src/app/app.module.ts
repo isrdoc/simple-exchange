@@ -9,6 +9,7 @@ import { ViewMarketComponent } from './components/view-market/view-market.compon
 import { ViewTransactionsComponent } from './components/view-transactions/view-transactions.component';
 import { ViewTradeComponent } from './components/view-trade/view-trade.component';
 import { BoxOrdersComponent } from './components/box-orders/box-orders.component';
+import { OrderSortPipe } from './pipes/order-sort.pipe';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { BoxOrdersComponent } from './components/box-orders/box-orders.component
     ViewMarketComponent,
     ViewTransactionsComponent,
     ViewTradeComponent,
-    BoxOrdersComponent
+    BoxOrdersComponent,
+    OrderSortPipe
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ export class BoxOrdersComponent implements OnInit {
 
   @Input() title: string;
   @Input() orders: Order[];
+  @Input() invert: boolean;
 
   constructor() { }
 
