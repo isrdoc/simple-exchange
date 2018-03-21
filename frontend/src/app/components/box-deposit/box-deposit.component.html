@@ -1,4 +1,36 @@
 <div id="deposit">
-    <h3>Deposit</h3>
-    
+  <h3 class="d-none">Deposit</h3>
+
+  <form class="form-inline" (submit)="onSubmit($event)">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <select class="input-group-text currency" [(ngModel)]="deposit.currency" name="currency">
+          <option
+            *ngFor="let currency of currencies"
+            [ngValue]="currency"
+            [selected]="currency.alias === 'BTC'"
+          >{{currency.alias}}</option>
+        </select>
+      </div>
+
+      <input
+        #amountInput
+        (change)="onChange(amountInput.value)"
+        [value]="deposit.amount | number:'1.5-5'"
+        name="amount"
+        class="form-control amount"
+        type="number"
+        step="0.00001"
+        placeholder="1.00000"
+      >
+
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-primary">Deposit</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="notice" [hidden]="!submitted">
+    Depositing to your account balance...
+  </div>
 </div>
