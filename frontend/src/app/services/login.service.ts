@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataService } from './data.service';
 
 @Injectable()
 export class LoginService {
@@ -7,14 +8,12 @@ export class LoginService {
   public loggedIn = false;
   public showLoginForm = false;
 
-  public user: User = {
-    username: 'trader1',
-    password: 'itrade'
-  };
-
   public form: FormGroup;
 
-  constructor(builder: FormBuilder) {
+  constructor(
+    private builder: FormBuilder,
+    private data: DataService
+  ) {
     this.form = builder.group({
       username: [null, Validators.required],
       password: [null, Validators.required]
@@ -30,16 +29,13 @@ export class LoginService {
   }
 
   public submitForm() {
+    this.data.login(this.form.value);
+/*
     this.user = this.form.value;
     this.loggedIn = true;
-
+*/
     console.log('value', this.form.value);
   }
 
 }
 
-
-export class User {
-  username: string;
-  password: string;
-}

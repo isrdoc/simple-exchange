@@ -5,6 +5,7 @@ import { DecimalPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginService } from './services/login.service';
+import { DataService } from './services/data.service';
 
 import { AppComponent } from './app.component';
 import { PageSidebarComponent } from './components/page-sidebar/page-sidebar.component';
@@ -43,7 +44,8 @@ import { BoxOrderPlaceComponent } from './components/box-order-place/box-order-p
   ],
   providers: [
     DecimalPipe,
-    LoginService
+    LoginService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })
