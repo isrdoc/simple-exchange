@@ -7,13 +7,23 @@ from ..models import MyModel
 
 
 @view_config(route_name='home', renderer='json')
-def my_view(request):
+def home_view(request):
     try:
         query = request.dbsession.query(MyModel)
         one = query.filter(MyModel.name == 'one').first()
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'project': 'exchange', 'one': one.value}
+
+@view_config(route_name='login', renderer='json')
+def login_view(request):
+    try:
+        query = request.dbsession.query(MyModel)
+        one = query.filter(MyModel.name == 'one').first()
+    except DBAPIError:
+        return Response(db_err_msg, content_type='text/plain', status=500)
+    return {'authenticated': True, 'user': { 'name': 'Trader 1' }}
+
 
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem

@@ -7,11 +7,16 @@ import { Subscription } from 'rxjs/Subscription';
 export class DataService {
 
   private urlServer = 'http://localhost:6543';
+  private urlLogin = '/login';
 
   private title: string;
 
-  private loggedIn: boolean;
-  private user: User;
+  public authentication: Authentication = {
+    authenticated: false,
+    user: {
+      name: ''
+    }
+  };
 
   constructor(private http: HttpClient) {
     this.getTitle();
@@ -27,18 +32,14 @@ export class DataService {
       password: form.password
     };
 
-    const subscription: Subscription = this.http.post(this.urlServer, request)
+    const subscription: Subscription = this.http.post(this.urlServer + this.urlLogin, request)
       .subscribe(result => {
-        localStorage.setItem('authentication', JSON.stringify(result));
+        this.authentication = result as Authentication;
         subscription.unsubscribe();
       });
-
-    console.log('localStorage', localStorage);
-
-    // loggedIn
-    // User
   }
 
+  // TODO: check this
   private serverDataToLocalStorage(field: string) {
     const subscription: Subscription = this.http.get(this.urlServer)
       .map(data => data ? data : null)
@@ -58,4 +59,9 @@ export class LoginRequest {
 
 export class User {
   name: string;
+}
+
+export class Authentication {
+  authenticated: boolean;
+  user: User;
 }

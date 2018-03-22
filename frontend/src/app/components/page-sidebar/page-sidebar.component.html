@@ -13,9 +13,9 @@
       </div>
   </div>
 
-  <div class="form bg-light text-dark" *ngIf="login.showLoginForm || login.loggedIn">
-    <app-box-login-form *ngIf="login.showLoginForm && !login.loggedIn"></app-box-login-form>
-    <app-box-order-place *ngIf="login.loggedIn"></app-box-order-place>
+  <div class="form bg-light text-dark" *ngIf="login.showLoginForm || data.authentication.authenticated">
+    <app-box-login-form *ngIf="login.showLoginForm && !data.authentication.authenticated"></app-box-login-form>
+    <app-box-order-place *ngIf="data.authentication.authenticated"></app-box-order-place>
   </div>
 
   <div class="footer bg-dark text-white">

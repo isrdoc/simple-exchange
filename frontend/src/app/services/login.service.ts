@@ -5,6 +5,7 @@ import { DataService } from './data.service';
 @Injectable()
 export class LoginService {
 
+  // TOOD: fix to this.data.authentication.authenticated
   public loggedIn = false;
   public showLoginForm = false;
 
@@ -21,8 +22,8 @@ export class LoginService {
   }
 
   public toggleLoginProcess() {
-    if (this.loggedIn) {
-      return this.loggedIn = false;
+    if (this.data.authentication.authenticated) {
+      return this.data.authentication.authenticated = false;
     }
 
     this.showLoginForm = !this.showLoginForm;
@@ -30,12 +31,6 @@ export class LoginService {
 
   public submitForm() {
     this.data.login(this.form.value);
-/*
-    this.user = this.form.value;
-    this.loggedIn = true;
-*/
-    console.log('value', this.form.value);
   }
 
 }
-
