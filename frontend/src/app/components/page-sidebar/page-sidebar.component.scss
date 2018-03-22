@@ -38,35 +38,19 @@
     }
 }
 
-.place-order {
-    padding: 15px;
-    height: 200px; // TODO: temp, remove
-}
-
 .footer {
     height: $header-height;
     line-height: $header-height;
-    padding-left: 15px;
-    // border-top: 2px solid #fff;
-    display: flex;
-    justify-content: space-between;
-
-    .avatar {
-        width: $header-height;
-        height: 100%;
-        border-left: 1px dotted #fff;
-    }
 }
 
 @media screen and (min-width: 960px) {
-    .place-order {
+    .form {
         border-left: 2px solid #343a40;
         border-right: 2px solid #343a40;
     
         // fixed sidebar place order box
         position: fixed;
         bottom: $header-height;
-        min-height: 200px; // TODO: temp, remove
         width: 298px; // TODO: fix
     }
 

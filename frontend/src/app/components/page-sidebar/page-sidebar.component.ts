@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Subscription } from 'rxjs/Subscription';
 import { Balance } from '../box-balance/box-balance.component';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-page-sidebar',
@@ -26,7 +27,10 @@ export class PageSidebarComponent implements OnInit, OnDestroy {
     }
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private login: LoginService
+  ) {}
 
   ngOnInit() {
     this.getTitle();

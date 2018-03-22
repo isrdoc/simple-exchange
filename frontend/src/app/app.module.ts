@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { DecimalPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { LoginService } from './services/login.service';
 
 import { AppComponent } from './app.component';
 import { PageSidebarComponent } from './components/page-sidebar/page-sidebar.component';
@@ -14,6 +15,9 @@ import { BoxOrdersComponent } from './components/box-orders/box-orders.component
 import { OrderSortPipe } from './pipes/order-sort.pipe';
 import { BoxBalanceComponent } from './components/box-balance/box-balance.component';
 import { BoxDepositComponent } from './components/box-deposit/box-deposit.component';
+import { BoxLoginUserComponent } from './components/box-login-user/box-login-user.component';
+import { BoxLoginFormComponent } from './components/box-login-form/box-login-form.component';
+import { BoxOrderPlaceComponent } from './components/box-order-place/box-order-place.component';
 
 
 @NgModule({
@@ -26,14 +30,21 @@ import { BoxDepositComponent } from './components/box-deposit/box-deposit.compon
     BoxOrdersComponent,
     OrderSortPipe,
     BoxBalanceComponent,
-    BoxDepositComponent
+    BoxDepositComponent,
+    BoxLoginUserComponent,
+    BoxLoginFormComponent,
+    BoxOrderPlaceComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [DecimalPipe],
+  providers: [
+    DecimalPipe,
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
