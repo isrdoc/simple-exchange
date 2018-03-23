@@ -51,8 +51,8 @@ class TestMyViewSuccessCondition(BaseTest):
         self.session.add(model)
 
     def test_passing_view(self):
-        from .views.default import home_view
-        info = home_view(dummy_request(self.session))
+        from .views.default import view_home
+        info = view_home(dummy_request(self.session))
         self.assertEqual(info['one'].name, 'one')
         self.assertEqual(info['project'], 'exchange')
 
@@ -60,6 +60,6 @@ class TestMyViewSuccessCondition(BaseTest):
 class TestMyViewFailureCondition(BaseTest):
 
     def test_failing_view(self):
-        from .views.default import home_view
-        info = home_view(dummy_request(self.session))
+        from .views.default import view_home
+        info = view_home(dummy_request(self.session))
         self.assertEqual(info.status_int, 500)

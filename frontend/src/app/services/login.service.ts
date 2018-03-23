@@ -6,7 +6,6 @@ import { DataService } from './data.service';
 export class LoginService {
 
   // TOOD: fix to this.data.authentication.authenticated
-  public loggedIn = false;
   public showLoginForm = false;
 
   public form: FormGroup;
@@ -24,6 +23,8 @@ export class LoginService {
   public toggleLoginProcess() {
     if (this.data.authentication.authenticated) {
       this.data.logout();
+      this.showLoginForm = false;
+      return;
     }
 
     this.showLoginForm = !this.showLoginForm;

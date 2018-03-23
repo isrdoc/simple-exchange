@@ -9,6 +9,7 @@ export class DataService {
 
   private urlServer = 'http://localhost:6543';
   private urlLogin = '/login';
+  private urlLogout = '/logout';
 
   public title: string;
   public authentication: Authentication;
@@ -25,7 +26,7 @@ export class DataService {
 
   // TODO: check this
   private serverDataToLocalStorage(field: string) {
-    const subscription: Subscription = this.http.get(this.urlServer)
+    const subscription: Subscription = this.http.get(this.urlServer, { withCredentials: true })
       .map(data => data ? data : null)
       .subscribe(result => {
         localStorage.setItem(field, result[field]);
@@ -47,21 +48,30 @@ export class DataService {
       password: form.password
     };
 
-    const subscription: Subscription = this.http.post(this.urlServer + this.urlLogin, request)
+    const subscription: Subscription = this.http.post(this.urlServer + this.urlLogin, request, { withCredentials: true })
       .subscribe(result => {
-        const userTypeCheck = new User(result['user'], new User());
-        this.authentication = new Authentication(result, new Authentication());
-
-        localStorage.setItem('authentication', JSON.stringify(this.authentication));
-
+        this.checkAndSetAuthentication(result);
         subscription.unsubscribe();
       });
   }
 
   public logout() {
-    this.authentication = new Authentication();
+    const subscription: Subscription = this.http.get(this.urlServer + this.urlLogout, { withCredentials: true })
+      .map(data => data ? data : null)
+      .subscribe(result => {
+        this.checkAndSetAuthentication(result);
+        subscription.unsubscribe();
+      });
+  }
+
+  private checkAndSetAuthentication(result) {
+    const userTypeCheck = new User(result['user'], new User());
+    this.authentication = new Authentication(result, new Authentication());
+
     localStorage.setItem('authentication', JSON.stringify(this.authentication));
   }
+
+  /* END Authentication */
 
 }
 

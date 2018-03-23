@@ -15,7 +15,7 @@ from ..models import (
     get_session_factory,
     get_tm_session,
     )
-from ..models import MyModel
+from ..models import MyModel, User
 
 
 def usage(argv):
@@ -34,6 +34,7 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri, options=options)
 
     engine = get_engine(settings)
+    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
     session_factory = get_session_factory(engine)
@@ -43,3 +44,11 @@ def main(argv=sys.argv):
 
         model = MyModel(name='one', value=1)
         dbsession.add(model)
+
+        editor = User(name='admin', username='admin', role='admin')
+        editor.set_password('admin')
+        dbsession.add(editor)
+
+        basic = User(name='Trader 1', username='trader', role='trader')
+        basic.set_password('trader')
+        dbsession.add(basic)

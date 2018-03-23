@@ -10,6 +10,8 @@ def main(global_config, **settings):
     config.include('.cors')
     config.add_cors_preflight_handler()
     config.include('.routes')
+
+    config.include('.security')
     
     config.scan()
     return config.make_wsgi_app()
