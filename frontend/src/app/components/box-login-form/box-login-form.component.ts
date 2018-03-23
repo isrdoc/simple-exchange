@@ -8,9 +8,15 @@ import { LoginService } from '../../services/login.service';
 })
 export class BoxLoginFormComponent implements OnInit {
 
+  private blurred: string;
+
   constructor(private login: LoginService) { }
 
   ngOnInit() {
+  }
+
+  onBlur(input) {
+    this.blurred = input;
   }
 
 }

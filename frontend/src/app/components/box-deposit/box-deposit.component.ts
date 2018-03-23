@@ -31,7 +31,6 @@ export class BoxDepositComponent implements OnInit {
   constructor(private decimal: DecimalPipe) { }
 
   ngOnInit() {
-    console.log('currencies', this.currencies);
   }
 
   onChange(value) {

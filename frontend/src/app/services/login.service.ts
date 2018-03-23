@@ -23,7 +23,7 @@ export class LoginService {
 
   public toggleLoginProcess() {
     if (this.data.authentication.authenticated) {
-      return this.data.authentication.authenticated = false;
+      this.data.logout();
     }
 
     this.showLoginForm = !this.showLoginForm;

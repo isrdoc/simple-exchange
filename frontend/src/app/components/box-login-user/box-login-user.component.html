@@ -1,5 +1,5 @@
 <div id="login-user">
-  {{data.authentication.authenticated ? data.authentication.user.name : 'Account login'}}
+  {{data.authentication.authenticated ? data.authentication.user.name : 'Please login to your account'}}
 
   <div class="action" (click)="login.toggleLoginProcess()">
     <i class="fa fa-lock" *ngIf="!data.authentication.authenticated"></i>

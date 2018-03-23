@@ -10,16 +10,35 @@ export class DataService {
   private urlServer = 'http://localhost:6543';
   private urlLogin = '/login';
 
-  private title: string;
-
-  public authentication: Authentication = new Authentication;
+  public title: string;
+  public authentication: Authentication;
 
   constructor(private http: HttpClient) {
     this.getTitle();
+    this.getAuthentication();
   }
 
+  /* Page */
   private getTitle() {
     this.serverDataToLocalStorage('project');
+  }
+
+  // TODO: check this
+  private serverDataToLocalStorage(field: string) {
+    const subscription: Subscription = this.http.get(this.urlServer)
+      .map(data => data ? data : null)
+      .subscribe(result => {
+        localStorage.setItem(field, result[field]);
+        subscription.unsubscribe();
+      });
+  }
+
+  /* Authentication */
+  private getAuthentication() {
+    const localAuthentication =  JSON.parse(localStorage.getItem('authentication'));
+    const userTypeCheck = new User(localAuthentication['user'], new User());
+
+    this.authentication = new Authentication(localAuthentication, new Authentication());
   }
 
   public login(form) {
@@ -33,18 +52,15 @@ export class DataService {
         const userTypeCheck = new User(result['user'], new User());
         this.authentication = new Authentication(result, new Authentication());
 
+        localStorage.setItem('authentication', JSON.stringify(this.authentication));
+
         subscription.unsubscribe();
       });
   }
 
-  // TODO: check this
-  private serverDataToLocalStorage(field: string) {
-    const subscription: Subscription = this.http.get(this.urlServer)
-      .map(data => data ? data : null)
-      .subscribe(result => {
-        localStorage.setItem(field, result[field]);
-        subscription.unsubscribe();
-      });
+  public logout() {
+    this.authentication = new Authentication();
+    localStorage.setItem('authentication', JSON.stringify(this.authentication));
   }
 
 }
