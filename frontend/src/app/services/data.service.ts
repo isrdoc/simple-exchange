@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Subscription } from 'rxjs/Subscription';
+import { ValidObject } from './validation.service';
 
 @Injectable()
 export class DataService {
@@ -11,12 +12,7 @@ export class DataService {
 
   private title: string;
 
-  public authentication: Authentication = {
-    authenticated: false,
-    user: {
-      name: ''
-    }
-  };
+  public authentication: Authentication = new Authentication;
 
   constructor(private http: HttpClient) {
     this.getTitle();
@@ -34,7 +30,9 @@ export class DataService {
 
     const subscription: Subscription = this.http.post(this.urlServer + this.urlLogin, request)
       .subscribe(result => {
-        this.authentication = result as Authentication;
+        const userTypeCheck = new User(result['user'], new User());
+        this.authentication = new Authentication(result, new Authentication());
+
         subscription.unsubscribe();
       });
   }
@@ -53,15 +51,27 @@ export class DataService {
 
 
 export class LoginRequest {
-  username: string;
-  password: string;
+  username = '';
+  password = '';
 }
 
-export class User {
-  name: string;
+export class User extends ValidObject {
+  name = '';
+
+  constructor(object?, model?) {
+    super(object, model);
+
+    if (object) { this.overload(object, model); }
+  }
 }
 
-export class Authentication {
-  authenticated: boolean;
-  user: User;
+export class Authentication extends ValidObject {
+  authenticated = false;
+  user: User = new User();
+
+  constructor(object?, model?) {
+    super(object, model);
+
+    if (object) { this.overload(object, model); }
+  }
 }
