@@ -1,7 +1,7 @@
-<div id="balance">
+<div id="balance" *ngIf="data.authentication.authenticated">
   <h3>Balance</h3>
   
-  <div class="balance" *ngFor="let balance of balances">
+  <div class="balance" *ngFor="let balance of data.balances">
     <div class="currency">{{balance.currency}}</div>
     <div class="amount text-right">{{balance.amount | number:'1.5-5'}}</div>
   </div>

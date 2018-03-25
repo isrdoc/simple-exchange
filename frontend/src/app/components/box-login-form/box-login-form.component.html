@@ -33,5 +33,6 @@
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="!login.form.valid">Login</button>
+    <span class="login-failed" *ngIf="data.authentication.loginFailed">Login failed</span>
   </form>
 </div>

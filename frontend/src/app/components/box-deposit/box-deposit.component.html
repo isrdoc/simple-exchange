@@ -1,4 +1,4 @@
-<div id="deposit">
+<div id="deposit" *ngIf="data.authentication.authenticated">
   <h3 class="d-none">Deposit</h3>
 
   <form class="form-inline" (submit)="onSubmit($event)">

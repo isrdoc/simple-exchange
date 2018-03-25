@@ -5,3 +5,13 @@
 .alert {
   margin-top: 5px;
 }
+
+.login-failed {
+  margin-left: 5px;
+  animation: fade-out 2s 2s forwards;
+}
+
+@keyframes fade-out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}

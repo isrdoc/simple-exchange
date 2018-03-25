@@ -6,6 +6,11 @@ import zope.sqlalchemy
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
 from .mymodel import MyModel  # noqa
+from .account import Account  # noqa
+from .asset import Asset  # noqa
+from .balance import Balance  # noqa
+from .currency import Currency  # noqa
+from .liability import Liability  # noqa
 from .user import User  # noqa
 
 # run configure_mappers after defining all of the models to ensure

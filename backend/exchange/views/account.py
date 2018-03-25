@@ -6,9 +6,9 @@ from sqlalchemy.exc import DBAPIError
 from ..models import MyModel
 
 
-@view_config(route_name='home', renderer='json')
-def view_home(request):
-    print('user: ' + str(request))
+@view_config(route_name='balances', renderer='json')
+def view_balances(request):
+    print('balances user: ' + str(request))
     if request.user is not None:
         print('user role: ' + str(request.user.role))
     try:
@@ -16,8 +16,7 @@ def view_home(request):
         one = query.filter(MyModel.name == 'one').first()
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'project': 'exchange', 'one': one.value}
-
+    return { 'balances': [ { 'currency': 'BTC', 'amount': 4.5 }, { 'currency': 'ETH', 'amount': 0 } ] }
 
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem

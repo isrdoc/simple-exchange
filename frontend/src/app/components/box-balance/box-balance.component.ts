@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { DataService } from '../../services/data.service';
+import { Balance } from '../../services/data.service';
+
 @Component({
   selector: 'app-box-balance',
   templateUrl: './box-balance.component.html',
@@ -9,15 +12,9 @@ export class BoxBalanceComponent implements OnInit {
 
   @Input() balances: Balance[];
 
-  constructor() { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
   }
 
-}
-
-
-export class Balance {
-  currency: string;
-  amount: number;
 }

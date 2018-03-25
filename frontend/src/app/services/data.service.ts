@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Subscription } from 'rxjs/Subscription';
-import { ValidObject } from './validation.service';
+import { ValidatedObject } from './validation.service';
 
 @Injectable()
 export class DataService {
@@ -10,14 +10,19 @@ export class DataService {
   private urlServer = 'http://localhost:6543';
   private urlLogin = '/login';
   private urlLogout = '/logout';
+  private urlBalances = '/account/balances';
 
   public title: string;
   public authentication: Authentication;
+  public balances: Balance[];
+
 
   constructor(private http: HttpClient) {
     this.getTitle();
     this.getAuthentication();
+    this.getBalances(true);
   }
+
 
   /* Page */
   private getTitle() {
@@ -34,12 +39,18 @@ export class DataService {
       });
   }
 
+
   /* Authentication */
   private getAuthentication() {
-    const localAuthentication =  JSON.parse(localStorage.getItem('authentication'));
-    const userTypeCheck = new User(localAuthentication['user'], new User());
+    const localAuthentication = JSON.parse(localStorage.getItem('authentication'));
 
-    this.authentication = new Authentication(localAuthentication, new Authentication());
+    if (localAuthentication.authenticated && localAuthentication.user) {
+      const userTypeCheck = new User(localAuthentication['user'], new User());
+      this.authentication = new Authentication(localAuthentication, new Authentication());
+      return;
+    }
+
+    this.authentication = new Authentication();
   }
 
   public login(form) {
@@ -48,9 +59,24 @@ export class DataService {
       password: form.password
     };
 
+    // reset loginFailed on new login attempt
+    this.authentication = new Authentication();
+    localStorage.setItem('authentication', JSON.stringify(this.authentication));
+
     const subscription: Subscription = this.http.post(this.urlServer + this.urlLogin, request, { withCredentials: true })
       .subscribe(result => {
-        this.checkAndSetAuthentication(result);
+        const LoginResponseCheck = new LoginResponse(result, new LoginResponse());
+
+        if (result['authenticated'] && result['user']) {
+          const userTypeCheck = new User(result['user'], new User());
+          this.authentication = new Authentication(result, new Authentication());
+        } else {
+          this.authentication = new Authentication({ loginFailed: true });
+        }
+
+        localStorage.setItem('authentication', JSON.stringify(this.authentication));
+        this.getBalances();
+
         subscription.unsubscribe();
       });
   }
@@ -59,45 +85,130 @@ export class DataService {
     const subscription: Subscription = this.http.get(this.urlServer + this.urlLogout, { withCredentials: true })
       .map(data => data ? data : null)
       .subscribe(result => {
-        this.checkAndSetAuthentication(result);
+        const LogoutResponseCheck = new LogoutResponse(result, new LogoutResponse());
+
+        this.authentication = new Authentication();
+        localStorage.setItem('authentication', JSON.stringify(this.authentication));
+
+        this.getBalances();
+
         subscription.unsubscribe();
       });
   }
 
-  private checkAndSetAuthentication(result) {
-    const userTypeCheck = new User(result['user'], new User());
-    this.authentication = new Authentication(result, new Authentication());
 
-    localStorage.setItem('authentication', JSON.stringify(this.authentication));
+  /* Balances */
+  private getBalances(useCache = false) {
+    const localBalances = JSON.parse(localStorage.getItem('balances'));
+    const localAuthentication = JSON.parse(localStorage.getItem('authentication'));
+
+    if (!localAuthentication.authenticated) {
+      this.balances = [];
+      return;
+    }
+
+    if (!this.balances) {
+      this.balances = [];
+    }
+
+    if (localBalances && localAuthentication.authenticated && useCache) {
+      this.balances = localBalances.filter(balance => {
+        const balanceCheck = new Balance(balance, new Balance());
+
+        return balance;
+      });
+
+      return;
+    }
+
+    const subscription: Subscription = this.http.get(this.urlServer + this.urlBalances, { withCredentials: true })
+      .map(data => data ? data : null)
+      .subscribe(result => {
+        const balancesResponseCheck = new BalancesResponse(result, new BalancesResponse());
+
+        this.balances = result['balances'].filter(balance => balance).map(balance => {
+          const balanceCheck = new Balance(balance, new Balance());
+
+          return balance;
+        });
+
+        localStorage.setItem('balances', JSON.stringify(this.balances));
+
+        subscription.unsubscribe();
+      });
   }
-
-  /* END Authentication */
 
 }
 
 
+/* Authentication */
 export class LoginRequest {
   username = '';
   password = '';
 }
 
-export class User extends ValidObject {
+export class LoginResponse extends ValidatedObject {
+  authenticated = false;
+
+  constructor(object?, model?) {
+    super(object, model);
+
+    if (object && model) { this.overload(object); }
+  }
+}
+
+export class LogoutResponse extends ValidatedObject {
+  authenticated = false;
+
+  constructor(object?, model?) {
+    super(object, model);
+
+    if (object && model) { this.overload(object); }
+  }
+}
+
+
+export class User extends ValidatedObject {
   name = '';
 
   constructor(object?, model?) {
     super(object, model);
 
-    if (object) { this.overload(object, model); }
+    if (object && model) { this.overload(object); }
   }
 }
 
-export class Authentication extends ValidObject {
+export class Authentication extends ValidatedObject {
   authenticated = false;
+  loginFailed?: boolean;
   user: User = new User();
 
   constructor(object?, model?) {
     super(object, model);
 
-    if (object) { this.overload(object, model); }
+    if (object) { this.overload(object); }
+  }
+}
+
+
+/* Balances */
+export class Balance extends ValidatedObject {
+  currency = '';
+  amount = 0;
+
+  constructor(object?, model?) {
+    super(object, model);
+
+    if (object && model) { this.overload(object); }
+  }
+}
+
+export class BalancesResponse extends ValidatedObject {
+  balances: Balance[] = [];
+
+  constructor(object?, model?) {
+    super(object, model);
+
+    if (object && model) { this.overload(object); }
   }
 }

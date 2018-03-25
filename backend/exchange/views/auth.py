@@ -16,20 +16,21 @@ from ..models import User
 @view_config(route_name='login', renderer='json')
 def view_login(request):
     data = request.json_body
+    # TODO: check if valid request object
     username = data['username']
     password = data['password']
     user = request.dbsession.query(User).filter_by(username=username).first()
     if user is not None and user.check_password(password):
         headers = remember(request, user.id)
         request.response.headerlist.extend(headers)
-        return {'authenticated': True, 'user': { 'name': user.name }}
-    return {'authenticated': False, 'user': { 'name': '' }}
+        return { 'authenticated': True, 'user': { 'name': user.name } }
+    return { 'authenticated': False }
 
 @view_config(route_name='logout', renderer='json')
 def view_logout(request):
     headers = forget(request)
     request.response.headerlist.extend(headers)
-    return {'authenticated': False, 'user': { 'name': '' }}
+    return { 'authenticated': False }
 
 @forbidden_view_config()
 def forbidden_view(request):

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
+import { DataService } from '../../services/data.service';
+
 @Component({
   selector: 'app-box-deposit',
   templateUrl: './box-deposit.component.html',
@@ -28,7 +30,10 @@ export class BoxDepositComponent implements OnInit {
     amount: '1.00000'
   };
 
-  constructor(private decimal: DecimalPipe) { }
+  constructor(
+    private decimal: DecimalPipe,
+    private data: DataService
+  ) { }
 
   ngOnInit() {
   }

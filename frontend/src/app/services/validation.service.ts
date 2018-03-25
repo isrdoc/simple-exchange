@@ -5,6 +5,10 @@ export class ValidationService {
 
   constructor() { }
 
+  validateObject() {
+    
+  }
+
 }
 
 /**
@@ -21,25 +25,27 @@ export class ValidationService {
  *    }
  *  }
 */
-export class ValidObject {
+export class ValidatedObject {
 
   constructor(object?, model?) {
     if (object && model) { this.typeCheck(object, model); }
   }
 
   private typeCheck(object?, model?) {
-    for (const property in object) {
-      if ( (typeof model[property] !== typeof object[property]) && (typeof object[property] !== 'function') ) {
+    for (const property in model) {
+      // console.log(property, model, typeof model[property], typeof object[property]);
+
+      if ( (typeof model[property] !== typeof object[property]) && (typeof model[property] !== 'function') ) {
         throw Error('Object: ' + JSON.stringify(object) + ' is not of type: ' + this.constructor.name);
       }
     }
   }
 
-  protected overload(object, model) {
+  protected overload(object) {
     for (const property in object) {
       if (typeof object[property] !== 'function') {
         if (typeof object[property] === 'object') {
-          this[property] = Object.assign(this[property], object[property]);
+          this[property] = Object.assign({}, object[property]);
         } else {
           this[property] = object[property];
         }
