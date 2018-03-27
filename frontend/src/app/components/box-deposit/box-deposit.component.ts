@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
+import { DepositService } from '../../services/deposit.service';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -10,28 +11,11 @@ import { DataService } from '../../services/data.service';
 })
 export class BoxDepositComponent implements OnInit {
 
-  private currencies: Currency[] = [
-    {
-      name: 'Bitcoin',
-      alias: 'BTC',
-      symbol: 'B'
-    },
-    {
-      name: 'Etherium',
-      alias: 'ETH',
-      symbol: 'E'
-    }
-  ];
-
-  private submitted = false;
-
-  private deposit: Deposit = {
-    currency: this.currencies[0],
-    amount: '1.00000'
-  };
+  private amount;
 
   constructor(
     private decimal: DecimalPipe,
+    private deposit: DepositService,
     private data: DataService
   ) { }
 
@@ -39,26 +23,7 @@ export class BoxDepositComponent implements OnInit {
   }
 
   onChange(value) {
-    this.deposit.amount = value;
-    this.submitted = false;
-
-    console.log('deposit', JSON.stringify(this.deposit));
+    this.amount = value;
   }
 
-  onSubmit(event) {
-    this.submitted = true;
-  }
-
-}
-
-
-export class Currency {
-  name: string;
-  alias: string;
-  symbol: string;
-}
-
-export class Deposit {
-  currency: Currency;
-  amount: number|string;
 }

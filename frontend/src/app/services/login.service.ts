@@ -5,7 +5,6 @@ import { DataService } from './data.service';
 @Injectable()
 export class LoginService {
 
-  // TOOD: fix to this.data.authentication.authenticated
   public showLoginForm = false;
 
   public form: FormGroup;

@@ -11,6 +11,7 @@ export class DataService {
   private urlLogin = '/login';
   private urlLogout = '/logout';
   private urlBalances = '/account/balances';
+  private urlDeposit = '/account/deposit';
 
   public title: string;
   public authentication: Authentication;
@@ -138,6 +139,27 @@ export class DataService {
       });
   }
 
+  deposit(form) {
+    const request: DepositRequest = {
+      currency: form.currency,
+      amount: form.amount
+    };
+
+    const subscription: Subscription = this.http.post(this.urlServer + this.urlDeposit, request, { withCredentials: true })
+      .map(data => data ? data : null)
+      .subscribe(result => {
+        const depositResponseCheck = new DepositResponse(result, new DepositResponse());
+
+        console.log('deposit', result);
+
+        if (result['deposit_successful']) {
+          this.getBalances();
+        }
+
+        subscription.unsubscribe();
+      });
+  }
+
 }
 
 
@@ -192,6 +214,21 @@ export class Authentication extends ValidatedObject {
 
 
 /* Balances */
+export class DepositRequest {
+  currency = '';
+  amount = 0;
+}
+
+export class DepositResponse extends ValidatedObject {
+  success = false;
+
+  constructor(object?, model?) {
+    super(object, model);
+
+    if (object && model) { this.overload(object); }
+  }
+}
+
 export class Balance extends ValidatedObject {
   currency = '';
   amount = 0;

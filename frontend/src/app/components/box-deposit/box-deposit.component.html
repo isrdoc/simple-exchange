@@ -1,12 +1,12 @@
 <div id="deposit" *ngIf="data.authentication.authenticated">
   <h3 class="d-none">Deposit</h3>
 
-  <form class="form-inline" (submit)="onSubmit($event)">
+  <form class="form-inline" [formGroup]="deposit.form" (ngSubmit)="deposit.submitForm()">
     <div class="input-group">
       <div class="input-group-prepend">
-        <select class="input-group-text currency" [(ngModel)]="deposit.currency" name="currency">
+        <select class="input-group-text currency" [formControl]="deposit.form.controls['currency']">
           <option
-            *ngFor="let currency of currencies"
+            *ngFor="let currency of deposit.currencies"
             [ngValue]="currency"
             [selected]="currency.alias === 'BTC'"
           >{{currency.alias}}</option>
@@ -16,12 +16,13 @@
       <input
         #amountInput
         (change)="onChange(amountInput.value)"
-        [value]="deposit.amount | number:'1.5-5'"
+        [value]="amount | number:'1.5-5'"
         name="amount"
         class="form-control amount"
         type="number"
         step="0.00001"
         placeholder="1.00000"
+        [formControl]="deposit.form.controls['amount']"
       >
 
       <div class="input-group-append">

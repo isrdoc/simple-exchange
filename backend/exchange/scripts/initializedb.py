@@ -15,7 +15,7 @@ from ..models import (
     get_session_factory,
     get_tm_session,
     )
-from ..models import MyModel, User
+from ..models import MyModel, User, Currency
 
 
 def usage(argv):
@@ -45,10 +45,22 @@ def main(argv=sys.argv):
         model = MyModel(name='one', value=1)
         dbsession.add(model)
 
-        editor = User(name='admin', username='admin', role='admin')
-        editor.set_password('admin')
-        dbsession.add(editor)
+        admin = User(name='admin', username='admin', role='admin')
+        admin.set_password('admin')
+        dbsession.add(admin)
 
-        basic = User(name='Trader 1', username='trader', role='trader')
-        basic.set_password('trader')
-        dbsession.add(basic)
+        trader = User(name='Trader 1', username='trader', role='trader')
+        trader.set_password('trader')
+        dbsession.add(trader)
+        dbsession.flush()
+        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+        print(trader.id)
+
+        # TODO: add account for trader
+        # account = 
+
+        bitcoin = Currency(name='Bitcoin', alias='BTC', symbol='B')
+        dbsession.add(bitcoin)
+
+        etherium = Currency(name='Etherium', alias='ETH', symbol='E')
+        dbsession.add(etherium)

@@ -4,12 +4,9 @@ import { Injectable } from '@angular/core';
 export class ValidationService {
 
   constructor() { }
-
-  validateObject() {
-    
-  }
-
 }
+
+// TODO: change all this into a function that validates and another that overloads?
 
 /**
  * Validates object properties types against default class members types (non-recursively)
