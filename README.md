@@ -6,16 +6,25 @@ Enables 2 users to send limit orders and trade
 
 - export VENV=project-directory/env
 
-- $VENV/bin/pip install -e .
+- python3 -m venv $VENV
 
 - cd backend
+
+- $VENV/bin/pip install -e .
 
 - $VENV/bin/initialize_exchange_db development.ini
 
 - $VENV/bin/pserve development.ini
 
-- cd frontend
+Open new terminal window
+
+- cd project-directory/frontend
 
 - yarn
 
 - ng serve
+
+Login with trader account:
+
+username: trader
+password: trader

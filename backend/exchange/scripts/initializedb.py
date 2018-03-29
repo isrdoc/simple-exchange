@@ -53,8 +53,6 @@ def main(argv=sys.argv):
         trader.set_password('trader')
         dbsession.add(trader)
         dbsession.flush()
-        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-        print(trader.id)
 
         # TODO: add account for trader
         # account = 

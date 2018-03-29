@@ -45,7 +45,7 @@ export class DataService {
   private getAuthentication() {
     const localAuthentication = JSON.parse(localStorage.getItem('authentication'));
 
-    if (localAuthentication.authenticated && localAuthentication.user) {
+    if (localAuthentication && localAuthentication.authenticated && localAuthentication.user) {
       const userTypeCheck = new User(localAuthentication['user'], new User());
       this.authentication = new Authentication(localAuthentication, new Authentication());
       return;
@@ -103,7 +103,7 @@ export class DataService {
     const localBalances = JSON.parse(localStorage.getItem('balances'));
     const localAuthentication = JSON.parse(localStorage.getItem('authentication'));
 
-    if (!localAuthentication.authenticated) {
+    if (localAuthentication && !localAuthentication.authenticated) {
       this.balances = [];
       return;
     }
